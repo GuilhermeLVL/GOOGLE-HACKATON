@@ -1,0 +1,217 @@
+Documento de Especificação de Requisitos (SRS): NexusTranslate
+Versão: 1.0
+Data: 04 de outubro de 2025
+
+1. Introdução
+1.1. Propósito
+O propósito do NexusTranslate é eliminar as barreiras de comunicação em ambientes digitais em tempo real. A aplicação web fornecerá transcrição e tradução simultâneas de conversas de áudio, capturando tanto a voz do usuário (microfone) quanto o áudio de saída do sistema (outros participantes em uma chamada, um vídeo, etc.). O sistema gerará um histórico de conversação estruturado que servirá de contexto para um assistente de IA integrado, permitindo ao usuário interagir e extrair informações da conversa em andamento. Este projeto visa resolver o problema da compreensão em reuniões multilíngues, webinars, aulas online e consumo de conteúdo em idiomas estrangeiros, utilizando a eficiência e privacidade da IA on-device do Google Chrome (Gemini Nano).
+
+1.2. Escopo do Produto
+O que o sistema fará (Escopo):
+
+Capturar áudio do microfone do usuário em tempo real.
+
+Capturar o áudio de saída do sistema (áudio do navegador/desktop).
+
+Transcrever ambos os fluxos de áudio simultaneamente usando a API de IA incorporada do Chrome.
+
+Exibir a transcrição em tempo real, diferenciando visualmente entre o "Usuário" e o "Sistema".
+
+Permitir a ativação/desativação da tradução automática para um idioma de destino selecionado pelo usuário.
+
+Manter um histórico da sessão de conversação (transcrição e tradução) que será utilizado como contexto para um chatbot.
+
+Fornecer uma interface de chat para que o usuário faça perguntas sobre a conversa em andamento (ex: "Resuma os últimos 5 minutos", "Quais foram os pontos de ação mencionados?").
+
+Permitir que o usuário copie o histórico da transcrição para a área de transferência.
+
+O que o sistema NÃO fará (Fora do Escopo para a Versão 1.0):
+
+Autenticação de usuários, contas ou perfis salvos.
+
+Armazenamento permanente das transcrições na nuvem.
+
+Transcrição de arquivos de áudio ou vídeo pré-gravados (o foco é estritamente em tempo real).
+
+Funcionalidades de colaboração em equipe (múltiplos usuários na mesma sessão).
+
+Suporte para navegadores que não sejam o Google Chrome com as APIs de IA incorporadas ativas.
+
+1.3. Público-Alvo
+Usuário Final: Profissionais que participam de reuniões internacionais, estudantes que assistem a aulas online em outros idiomas, criadores de conteúdo, jornalistas e qualquer pessoa que precise de assistência de tradução e transcrição em tempo real para interações digitais.
+
+2. Descrição Geral
+2.1. Perspectiva do Produto
+O NexusTranslate é uma aplicação web standalone e inovadora, projetada especificamente para o "Google Chrome Built-in AI Challenge 2025". Ele explora o poder das APIs de IA on-device (Gemini Nano) para oferecer uma solução de baixa latência, focada em privacidade e sem custos de servidor para o processamento de IA. Ele se posiciona como uma ferramenta de produtividade e acessibilidade.
+
+2.2. Resumo das Funcionalidades Principais
+Transcrição Dupla em Tempo Real: Captura e transcreve simultaneamente o áudio do usuário e do sistema, criando um diálogo escrito.
+
+Tradução Simultânea: Traduz a transcrição em tempo real para o idioma escolhido pelo usuário, com um simples botão de alternância.
+
+Histórico de Conversação Contextual: Organiza a transcrição em um formato estruturado, fácil de ler e consumir.
+
+Assistente de IA Conversacional: Utiliza o histórico da conversa como contexto para um chatbot que pode resumir, extrair informações e responder a perguntas sobre o diálogo em andamento.
+
+2.3. Características dos Usuários
+O público-alvo possui um nível de conhecimento técnico de intermediário a avançado, confortável com o uso de aplicações web modernas e extensões de navegador. Valorizam a eficiência, a produtividade e, crucialmente, a privacidade dos seus dados, tornando a abordagem on-device do NexusTranslate particularmente atraente.
+
+3. Requisitos Funcionais (RF)
+3.1. Captura e Transcrição de Áudio
+RF-001: O sistema deve solicitar e obter permissão do usuário para acessar o microfone antes de iniciar a captura.
+
+RF-002: O sistema deve possuir um botão de "Iniciar/Parar Sessão" que controla o início e o fim da captura de áudio e da transcrição.
+
+RF-003: O sistema deve capturar o áudio proveniente do microfone do usuário.
+
+RF-004: O sistema deve capturar o áudio de saída do sistema (por exemplo, de outra aba do navegador ou aplicativo).
+
+RF-005: O sistema deve enviar os fluxos de áudio para a API de IA do Chrome para transcrição em tempo real.
+
+RF-006: O sistema deve exibir o texto transcrito em uma área de visualização, atualizando-a dinamicamente à medida que a fala é processada.
+
+RF-007: O sistema deve diferenciar visualmente as transcrições originadas do microfone ("Usuário") e do áudio do sistema ("Sistema"), por exemplo, com alinhamento, cores ou avatares diferentes.
+
+3.2. Funcionalidades de Tradução
+RF-008: O sistema deve apresentar um controle (ex: botão de alternância) para habilitar ou desabilitar a funcionalidade de tradução.
+
+RF-009: O sistema deve fornecer uma lista suspensa (dropdown) para o usuário selecionar o idioma de destino para a tradução a partir de uma lista de idiomas suportados pela API.
+
+RF-010: Quando a tradução estiver habilitada, o sistema deve exibir o texto traduzido abaixo ou ao lado de cada segmento do texto original transcrito.
+
+3.3. Histórico de Conversação e Assistente de IA
+RF-011: O sistema deve armazenar a sessão de transcrição atual (original e traduzida) em uma estrutura de dados na memória do navegador.
+
+RF-012: O sistema deve fornecer uma interface de chat (campo de texto e botão de envio) para o usuário interagir com o assistente de IA.
+
+RF-013: Ao enviar uma pergunta, o sistema deve usar o histórico de transcrição acumulado como contexto principal para a API de IA do Chrome (Prompt API).
+
+RF-014: O sistema deve exibir as respostas do assistente de IA na interface de chat.
+
+RF-015: O sistema deve fornecer um botão para "Copiar Transcrição" que copia todo o histórico da sessão para a área de transferência do usuário em um formato de texto claro.
+
+RF-016: O sistema deve fornecer um botão para "Limpar Sessão", que apaga o histórico de transcrição e reinicia o estado da aplicação.
+
+3.4. Interface e Experiência do Usuário (Frontend)
+RF-017: A aplicação deve ser uma Single-Page Application (SPA) para uma experiência fluida e sem recarregamentos de página.
+
+RF-018: A interface deve ser dividida em três áreas principais: Painel de Controle (botões, seleção de idioma), Visualização da Transcrição e Janela do Assistente de IA.
+
+RF-019: O sistema deve ser responsivo, garantindo uma boa experiência de uso em desktops. O suporte a dispositivos móveis é secundário, mas a interface não deve ser inutilizável.
+
+4. Requisitos Não-Funcionais (RNF)
+4.1. Desempenho
+A latência entre o final de uma frase falada e a sua exibição como texto transcrito deve ser inferior a 2 segundos para ser percebida como "tempo real".
+
+As respostas do assistente de IA devem ser retornadas em menos de 3 segundos após o envio da pergunta.
+
+A aplicação web deve carregar completamente em menos de 3 segundos em uma conexão de banda larga.
+
+4.2. Segurança e Privacidade
+Todo o processamento de IA (transcrição, tradução, respostas do chat) deve ocorrer localmente no dispositivo do usuário, utilizando as APIs de IA incorporadas do Chrome.
+
+Nenhum dado de áudio ou texto da conversa deve ser enviado a servidores externos, garantindo a privacidade total do usuário.
+
+A aplicação deve ser servida via HTTPS.
+
+4.3. Usabilidade
+Um novo usuário deve ser capaz de iniciar uma sessão de transcrição em menos de 3 cliques após carregar a página (Permitir microfone -> Escolher idioma -> Iniciar Sessão).
+
+Os controles e o estado do sistema (gravando, pausado, tradução ativa) devem ser claramente indicados visualmente.
+
+4.4. Escalabilidade
+A arquitetura é inerentemente escalável do ponto de vista do usuário, pois todo o processamento pesado ocorre no cliente. A infraestrutura de hospedagem deve suportar um grande número de downloads iniciais da aplicação (hospedagem estática).
+
+4.5. Disponibilidade
+Como uma aplicação estática com processamento no cliente, a disponibilidade depende principalmente do serviço de hospedagem (ex: GitHub Pages, Vercel), que geralmente oferece um uptime superior a 99.9%.
+
+A funcionalidade principal deve ser resiliente a falhas de rede após o carregamento inicial da página.
+
+5. Requisitos Específicos da IA
+5.1. Requisitos de Dados
+Fonte de Dados: A fonte de dados para a IA é o fluxo de áudio ao vivo do microfone do usuário e do sistema, capturado pelo navegador.
+
+Formato e Qualidade: O áudio será processado no formato suportado pela Prompt API do Chrome. O contexto para o chatbot será uma string formatada ou um objeto JSON representando o histórico da conversa. Exemplo de estrutura para cada entrada: { timestamp: "2025-10-04T12:30:05Z", speaker: "User", original: "Hello, can you hear me?", translation: "Olá, você pode me ouvir?" }.
+
+5.2. Requisitos do Modelo
+Métrica de Sucesso: A qualidade da transcrição será avaliada qualitativamente através da taxa de erro de palavra (Word Error Rate - WER) percebida. A utilidade das respostas do chatbot será o principal indicador de sucesso para essa funcionalidade.
+
+Tipo de Modelo: Utilizará os modelos Gemini Nano disponibilizados através das APIs de IA incorporadas do Google Chrome.
+
+APIs Utilizadas:
+
+Prompt API (com suporte a áudio): Para a transcrição em tempo real e para alimentar o assistente de IA com o contexto da conversa.
+
+Translator API: Para a tradução simultânea do texto transcrito.
+
+(Opcional) Summarizer API: Poderia ser integrada ao chatbot para fornecer resumos de alta qualidade com um único comando.
+
+Latência e Throughput: A inferência deve ser rápida o suficiente para manter a percepção de tempo real, conforme especificado nos RNF de Desempenho.
+
+5.3. Integração (API)
+A integração será feita no lado do cliente (client-side) via JavaScript. O código irá interagir com o objeto window.ai (ou a interface equivalente fornecida pelo Chrome) para acessar os modelos.
+
+Exemplo Conceitual de Transcrição:
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+const transcriber = window.ai.createAudioTranscriber();
+transcriber.listen(stream, (text) => { console.log('Texto transcrito:', text); });
+
+Exemplo Conceitual de Chat:
+const context = getConversationHistoryAsString();
+const prompt = \Contexto: ${context}\n\nPergunta: ${userInput}`;     const response = await window.ai.prompt(prompt);`
+
+6. Histórias de Usuário
+HU-01: Como um estudante universitário, eu quero transcrever e traduzir uma palestra online em inglês para o meu idioma nativo em tempo real, para que eu possa entender o conteúdo complexo sem perder nenhum detalhe.
+
+HU-02: Como uma gerente de projetos em uma reunião com uma equipe global, eu quero ter uma transcrição ao vivo da discussão e, no final, perguntar ao assistente de IA "Liste todas as decisões e itens de ação", para que eu possa redigir a ata da reunião de forma rápida e precisa.
+
+HU-03: Como um entusiasta de jogos assistindo a uma transmissão ao vivo em japonês, eu quero ver legendas traduzidas em tempo real e poder perguntar ao assistente "O que o streamer disse sobre o novo personagem?", para que eu possa participar da comunidade mesmo sem falar o idioma.
+
+7. Proposta de Arquitetura e Stack Tecnológica
+Frontend: React.js (com Vite) ou Vue.js. Utilizaremos TypeScript para robustez e manutenibilidade. A escolha por um framework reativo é ideal para a interface dinâmica da aplicação.
+
+Backend (API): Nenhum backend tradicional será necessário para as funcionalidades principais, alinhando-se com os requisitos do hackathon de usar a IA on-device.
+
+Backend (Híbrido - Opcional): Para uma possível extensão futura, o Firebase AI Logic ou uma API externa com o Gemini Developer API poderiam ser usados para funcionalidades que excedam a capacidade do modelo on-device.
+
+Banco de Dados: Não aplicável para a v1.0. O estado da aplicação será gerenciado na memória do navegador (ex: Zustand, Redux Toolkit).
+
+Infraestrutura/Cloud: Vercel, Netlify ou GitHub Pages para hospedagem estática global, de baixo custo e alta disponibilidade.
+
+8. Modelo de Dados Preliminar
+Não haverá um banco de dados, mas a estrutura de dados em memória para a sessão de transcrição será crucial. Proposta de estrutura em JSON:
+
+JSON
+
+{
+  "sessionId": "unique-session-id",
+  "startTime": "2025-10-04T12:30:00Z",
+  "transcriptEntries": [
+    {
+      "id": 1,
+      "timestamp": "2025-10-04T12:30:05Z",
+      "speaker": "System",
+      "originalText": "Good morning everyone, welcome to the call.",
+      "translatedText": "Bom dia a todos, bem-vindos à chamada."
+    },
+    {
+      "id": 2,
+      "timestamp": "2025-10-04T12:30:08Z",
+      "speaker": "User",
+      "originalText": "Good morning, I'm ready to start.",
+      "translatedText": "Bom dia, estou pronto para começar."
+    }
+  ]
+}
+9. Premissas, Suposições e Dependências
+Premissas e Suposições
+Suposição de API: Assume-se que as APIs de IA incorporadas do Chrome (especificamente a Prompt API com entrada de áudio) são capazes de processar fluxos de áudio contínuos e fornecer resultados com baixa latência.
+
+Suposição sobre Captura de Áudio do Sistema: A captura de áudio do sistema a partir de uma aplicação web padrão é um desafio técnico complexo e muitas vezes restrito por segurança. Assume-se que isso será possível através de APIs do navegador (como getDisplayMedia) ou que uma abordagem alternativa será necessária (ex: o usuário configura seu áudio virtualmente). A viabilidade desta funcionalidade é o maior risco técnico do projeto e exigirá uma fase de prova de conceito imediata. Para o MVP do hackathon, uma solução pode ser focar na captura de áudio da aba atual.
+
+Suposição de Desempenho: Assume-se que o hardware do usuário médio é capaz de executar os modelos Gemini Nano de forma eficiente para não comprometer a experiência em tempo real.
+
+Dependências
+Dependência de Navegador: O projeto depende estritamente do Google Chrome (versão desktop) que suporte o conjunto de APIs "Built-in AI".
+
+Permissões do Usuário: A funcionalidade do aplicativo depende inteiramente da concessão de permissões de acesso ao microfone e, potencialmente, à tela/áudio da aba pelo usuário.
